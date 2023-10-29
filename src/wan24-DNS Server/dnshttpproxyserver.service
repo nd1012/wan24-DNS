@@ -1,0 +1,16 @@
+﻿[Unit]
+Description=http DNS proxy server
+
+[Service]
+WorkingDirectory=/home/dnsserver
+ExecStart=/usr/bin/dotnet /home/dnsserver/wan24DnsServer.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dnshttpproxyserver
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+
+[Install]
+WantedBy=multi-user.target

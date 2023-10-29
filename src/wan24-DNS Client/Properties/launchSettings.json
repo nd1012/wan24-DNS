@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "wan24-DNS Client": {
+      "commandName": "Project",
+      "commandLineArgs": "-test"
+    }
+  }
+}

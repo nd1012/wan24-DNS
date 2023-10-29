@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>wan24.DNS</RootNamespace>
+    <AssemblyName>wan24DnsServer</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\schic\.nuget\packages\arsoft.tools.net\3.5.0\contentFiles\any\net6.0\LICENSE" />
+    <Content Remove="C:\Users\schic\.nuget\packages\arsoft.tools.net\3.5.0\contentFiles\any\net6.0\NOTICE" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ObjectValidation" Version="1.12.2" />
+    <PackageReference Include="wan24-Core" Version="1.39.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="dnshttpproxyserver.service">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

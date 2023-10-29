@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wan24-DNS Client", "wan24-DNS Client.csproj", "{A5005785-05DA-442B-8CAB-0C39B864DF75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wan24-DNS Server", "..\wan24-DNS Server\wan24-DNS Server.csproj", "{DBBD2DCC-0D27-4D56-850A-347BA3758725}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5005785-05DA-442B-8CAB-0C39B864DF75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5005785-05DA-442B-8CAB-0C39B864DF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5005785-05DA-442B-8CAB-0C39B864DF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5005785-05DA-442B-8CAB-0C39B864DF75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBBD2DCC-0D27-4D56-850A-347BA3758725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBBD2DCC-0D27-4D56-850A-347BA3758725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBBD2DCC-0D27-4D56-850A-347BA3758725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBBD2DCC-0D27-4D56-850A-347BA3758725}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D0CE2A1-8035-484D-808F-7C5DCB8E7803}
+	EndGlobalSection
+EndGlobal

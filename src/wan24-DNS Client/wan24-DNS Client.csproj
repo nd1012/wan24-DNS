@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>wan24.DNS</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>wan24DnsClient</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\schic\.nuget\packages\arsoft.tools.net\3.5.0\contentFiles\any\net6.0\LICENSE" />
+    <Content Remove="C:\Users\schic\.nuget\packages\arsoft.tools.net\3.5.0\contentFiles\any\net6.0\NOTICE" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DnsClient" Version="1.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="ObjectValidation" Version="1.12.2" />
+    <PackageReference Include="wan24-Core" Version="1.39.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="dnshttpproxyclient.service">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
