@@ -44,14 +44,14 @@ namespace wan24.DNS.Middleware
                 Logging.WriteTrace($"WebSocket connection from {context.Connection.RemoteIpAddress} accepted");
                 // Receive the authentication token
                 string token;
-                using (RentedArrayStructSimple<byte> buffer = new(Math.Max(short.MaxValue, Core.Settings.BufferSize), clean: false))
+                using (RentedArrayStructSimple<byte> buffer = new(Math.Max(short.MaxValue, Settings.BufferSize), clean: false))
                 {
                     Logging.WriteTrace($"Authenticating WebSocket connection from {context.Connection.RemoteIpAddress}");
                     ValueWebSocketReceiveResult auth = await client.ReceiveAsync(buffer.Memory, context.RequestAborted).AsTask().WaitAsync(TimeSpan.FromSeconds(1))
                         .DynamicContext();
                     if (auth.MessageType != WebSocketMessageType.Text)
                     {
-                        Logging.WriteTrace($"Invalid WebSocket authentication message {auth.MessageType} from {context.Connection.RemoteIpAddress} received - closing");
+                        Logging.WriteDebug($"Invalid WebSocket authentication message {auth.MessageType} from {context.Connection.RemoteIpAddress} received - closing");
                         await client.CloseAsync(WebSocketCloseStatus.ProtocolError, statusDescription: null, context.RequestAborted).WaitAsync(TimeSpan.FromSeconds(1))
                             .DynamicContext();
                         return;
@@ -62,7 +62,7 @@ namespace wan24.DNS.Middleware
                 Logging.WriteTrace($"Received WebSocket authentication token \"{token}\" from {context.Connection.RemoteIpAddress}");
                 if (!AppSettings.Current.AuthToken.Contains(token))
                 {
-                    Logging.WriteTrace($"Invalid WebSocket authentication from {context.Connection.RemoteIpAddress} received - closing");
+                    Logging.WriteDebug($"Invalid WebSocket authentication from {context.Connection.RemoteIpAddress} received - closing");
                     await client.CloseAsync(WebSocketCloseStatus.PolicyViolation, statusDescription: null, context.RequestAborted).WaitAsync(TimeSpan.FromSeconds(1))
                         .DynamicContext();
                     return;
@@ -84,7 +84,7 @@ namespace wan24.DNS.Middleware
             }
             catch (Exception ex)
             {
-                Logging.WriteError($"WebSocket middleware exception: {ex}");
+                Logging.WriteError($"WebSocket middleware exception during handling {context.Connection.RemoteIpAddress}: {ex}");
                 throw;
             }
         }

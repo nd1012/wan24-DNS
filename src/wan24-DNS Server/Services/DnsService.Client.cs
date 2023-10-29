@@ -131,8 +131,8 @@ namespace wan24.DNS.Services
                         }
                         Logging.WriteTrace($"Query handler {EndPoint} received message {request.MessageType} ({request.Count} byte)");
                         // Parse the query
-                        using (MemoryStream responseStream = new(receiveBuffer.Array))
-                        using (PartialStream msg = new(responseStream, request.Count))
+                        using (MemoryStream requestStream = new(receiveBuffer.Array))
+                        using (PartialStream msg = new(requestStream, request.Count))
                         {
                             if (msg.Read(intBuffer.Span) != intBuffer.Length) throw new InvalidDataException("Failed to read task hash code");
                             tcsHashCode = intBuffer.Span.ToInt();
@@ -161,10 +161,13 @@ namespace wan24.DNS.Services
                 {
                     Logging.WriteError($"Query handler {EndPoint} failed: {ex}");
                 }
-                if (!IsDisposing)
+                finally
                 {
-                    Logging.WriteError($"Query handler {EndPoint} disposing client");
-                    _ = DisposeAsync().AsTask();
+                    if (!IsDisposing)
+                    {
+                        Logging.WriteError($"Query handler {EndPoint} disposing client");
+                        _ = DisposeAsync().AsTask();
+                    }
                 }
             }
 

@@ -40,7 +40,7 @@ namespace wan24.DNS.Services
             if (!IsRunning || IsStopping) throw new InvalidOperationException();
             if (Clients.TryRemove(client.Authentication, out Client? existing))
             {
-                Logging.WriteInfo($"Detected double connection for authentication \"{client.Authentication}\" from {client.EndPoint} - disconnecting {existing.EndPoint}");
+                Logging.WriteWarning($"Detected double connection for authentication \"{client.Authentication}\" from {client.EndPoint} - disconnecting {existing.EndPoint}");
                 await existing.DisposeAsync().DynamicContext();
             }
             if (Clients.TryAdd(client.Authentication, client))
@@ -50,16 +50,16 @@ namespace wan24.DNS.Services
                 return;
             }
             await client.DisposeAsync().DynamicContext();
-            Logging.WriteInfo($"Failed to add client {client.EndPoint}");
+            Logging.WriteWarning($"Failed to add client {client.EndPoint}");
         }
 
         /// <inheritdoc/>
         protected override async Task WorkerAsync()
         {
             await CancelToken.WaitHandle.WaitAsync().DynamicContext();
-            Logging.WriteInfo($"DNS service {this} worker was cancelled");
+            Logging.WriteDebug($"DNS service {this} worker was cancelled");
             await Clients.Values.DisposeAllAsync().DynamicContext();
-            Logging.WriteInfo($"DNS service {this} worker is quitting");
+            Logging.WriteDebug($"DNS service {this} worker is quitting");
         }
 
         /// <summary>

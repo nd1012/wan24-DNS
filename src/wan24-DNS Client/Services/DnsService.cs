@@ -50,7 +50,6 @@ namespace wan24.DNS.Services
                     await Resolver.SendAsync(buffer.Memory, WebSocketMessageType.Text, endOfMessage: true, CancelToken).DynamicContext();
                     Logging.WriteTrace($"{this} authenticated to resolver {AppSettings.Current.Resolver}");
                 }
-                Logging.WriteTrace($"{this} resolver responses");
                 ResolverTask = HandleResolvedAsync();
                 // Start listening
                 IPEndPoint endPoint;
@@ -274,16 +273,17 @@ namespace wan24.DNS.Services
         private async Task HandleResolvedAsync()
         {
             Logging.WriteTrace($"{this} handling resolver responses");
-            using RentedArrayStructSimple<byte> receiveBuffer = new(Math.Max(short.MaxValue, Core.Settings.BufferSize), clean: false);
+            using RentedArrayStructSimple<byte> receiveBuffer = new(Math.Max(short.MaxValue, Settings.BufferSize), clean: false);
             using RentedArrayStructSimple<byte> intBuffer = new(len: sizeof(int), clean: false);
             using MemoryPoolStream packet = new();
+            ValueWebSocketReceiveResult response;
             int tcsHashCode;
             try
             {
                 while (!CancelToken.IsCancellationRequested)
                 {
                     // Receive the next message
-                    ValueWebSocketReceiveResult response = await Resolver!.ReceiveAsync(receiveBuffer.Memory, CancelToken).DynamicContext();
+                    response = await Resolver!.ReceiveAsync(receiveBuffer.Memory, CancelToken).DynamicContext();
                     if (response.MessageType != WebSocketMessageType.Binary)
                     {
                         Logging.WriteWarning($"{this} resolver sent {response.MessageType} - stopping handler");
