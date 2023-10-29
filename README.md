@@ -163,3 +163,4 @@ thinking about:
 - [ ] `wan24-DNS` client GUI with an installer
 - [ ] TCP DNS support (currently only UDP messages will be processed)
 - [ ] Limit parallel processing requests per client on the server
+- [ ] Detached DNS cache
