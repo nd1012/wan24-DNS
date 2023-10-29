@@ -280,7 +280,7 @@ namespace wan24.DNS.Services
             int tcsHashCode;
             try
             {
-                while (!CancelToken.IsCancellationRequested)
+                while (EnsureNotCanceled(throwOnCancellation: false))
                 {
                     // Receive the next message
                     response = await Resolver!.ReceiveAsync(receiveBuffer.Memory, CancelToken).DynamicContext();

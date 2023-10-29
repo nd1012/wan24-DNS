@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wan24-DNS Client", "wan24-DNS Client.csproj", "{A5005785-05DA-442B-8CAB-0C39B864DF75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wan24-DNS Client", "wan24-DNS Client\wan24-DNS Client.csproj", "{A5005785-05DA-442B-8CAB-0C39B864DF75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wan24-DNS Server", "..\wan24-DNS Server\wan24-DNS Server.csproj", "{DBBD2DCC-0D27-4D56-850A-347BA3758725}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wan24-DNS Server", "wan24-DNS Server\wan24-DNS Server.csproj", "{DBBD2DCC-0D27-4D56-850A-347BA3758725}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
