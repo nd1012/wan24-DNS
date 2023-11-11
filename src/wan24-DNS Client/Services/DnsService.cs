@@ -253,9 +253,9 @@ namespace wan24.DNS.Services
                 if (ex.CancellationToken != CancelToken)
                     Logging.WriteError($"Canceled during handling UDP packet from {packet.RemoteEndPoint} to {endPoint} ({this}): {ex}");
             }
-            catch (TimeoutException)
+            catch (TimeoutException ex)
             {
-                Logging.WriteDebug($"Timeout during handling UDP packet from {packet.RemoteEndPoint} to {endPoint} ({this})");
+                Logging.WriteDebug($"Timeout during handling UDP packet from {packet.RemoteEndPoint} to {endPoint} ({this}): {ex}");
             }
             catch (Exception ex)
             {
@@ -291,8 +291,7 @@ namespace wan24.DNS.Services
                     }
                     Logging.WriteTrace($"{this} got response message {response.MessageType} ({response.Count} byte) from resolver");
                     // Parse the response
-                    using (MemoryStream responseStream = new(receiveBuffer.Array))
-                    using (PartialStream msg = new(responseStream, response.Count))
+                    using (MemoryStream msg = new(receiveBuffer.Array))
                     {
                         if (msg.Read(intBuffer.Span) != intBuffer.Length) throw new InvalidDataException("Failed to read task hash code");
                         tcsHashCode = intBuffer.Span.ToInt();

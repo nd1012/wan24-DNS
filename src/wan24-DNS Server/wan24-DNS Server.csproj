@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="ObjectValidation" Version="1.13.0" />
-    <PackageReference Include="wan24-Core" Version="1.40.0" />
+    <PackageReference Include="wan24-Core" Version="1.42.0" />
   </ItemGroup>
 
   <ItemGroup>
