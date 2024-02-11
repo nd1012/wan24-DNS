@@ -36,9 +36,10 @@ namespace wan24.DNS.Services
         protected override async Task WorkerAsync()
         {
             await Task.Delay(TimeSpan.FromSeconds(1)).DynamicContext();
-            Core.Logging.WriteInfo($"Trying to resolve a hostname");
+            Core.Logging.WriteInfo($"Trying to resolve a hostname at {string.Join(", ", from ep in AppSettings.Current.EndPoints select IPEndPoint.Parse(ep))}");
             LookupClient client = new((from ep in AppSettings.Current.EndPoints select IPEndPoint.Parse(ep)).ToArray());
             IDnsQueryResponse response = await client.QueryAsync("wan24.de", QueryType.A);
+            Core.Logging.WriteInfo("Got response");
             foreach (ARecord record in response.Answers.ARecords())
                 Core.Logging.WriteInfo($"Resolved to IP address {record.Address}");
         }

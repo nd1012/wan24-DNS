@@ -9,21 +9,19 @@ namespace wan24.DNS.Middleware
     /// <summary>
     /// WebSocket middleware
     /// </summary>
-    public sealed class WebSocketMiddleware
+    /// <remarks>
+    /// Constructor
+    /// </remarks>
+    /// <param name="next">Next middleware</param>
+    /// <param name="service">Service</param>
+#pragma warning disable CS9113 // Remove unused parameter
+    public sealed class WebSocketMiddleware(RequestDelegate next, DnsService service)
+#pragma warning restore CS9113 // Remove unused parameter
     {
         /// <summary>
         /// Service
         /// </summary>
-        private readonly DnsService Service;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="next">Next middleware</param>
-        /// <param name="service">Service</param>
-#pragma warning disable IDE0060 // Remove unused parameter
-        public WebSocketMiddleware(RequestDelegate next, DnsService service) => Service = service;
-#pragma warning restore IDE0060 // Remove unused parameter
+        private readonly DnsService Service = service;
 
         /// <summary>
         /// Invoke

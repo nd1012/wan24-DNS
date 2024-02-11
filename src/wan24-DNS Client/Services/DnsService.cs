@@ -59,9 +59,11 @@ namespace wan24.DNS.Services
                     endPoint = IPEndPoint.Parse(ep);
                     UdpClient client = new(endPoint)
                     {
-                        DontFragment = true,
+                        DontFragment = false,
                         EnableBroadcast = false
                     };
+                    client.Client.ReceiveBufferSize = 65507;
+                    client.Client.SendBufferSize = 65507;
                     Servers[client] = HandleQueriesAsync(client, endPoint);
                 }
                 // Wait for stopping

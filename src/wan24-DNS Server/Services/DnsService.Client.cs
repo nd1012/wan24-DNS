@@ -143,13 +143,13 @@ namespace wan24.DNS.Services
                     }
                     Logging.WriteTrace($"Query handler {EndPoint} stopped handling DNS queries");
                 }
-                catch (SocketException ex)
-                {
-                    Logging.WriteDebug($"Query handler {EndPoint} catched a socket exception: {ex}");
-                }
                 catch (WebSocketException ex)
                 {
                     Logging.WriteDebug($"Query handler {EndPoint} catched a WebSocket exception: {ex}");
+                }
+                catch (SocketException ex)
+                {
+                    Logging.WriteDebug($"Query handler {EndPoint} catched a socket exception: {ex}");
                 }
                 catch (OperationCanceledException ex)
                 {
@@ -183,9 +183,11 @@ namespace wan24.DNS.Services
                     // Forward the DNS query to the resolver and receive the response
                     using UdpClient server = new()
                     {
-                        DontFragment = true,
+                        DontFragment = false,
                         EnableBroadcast = false
                     };
+                    server.Client.ReceiveBufferSize = 65507;
+                    server.Client.SendBufferSize = 65507;
                     Logging.WriteTrace($"Query processor {EndPoint} forwarding query #{tcsHashCode} to {Service.Resolver}");
                     await server.SendAsync(dnsQuery, Service.Resolver, CancelToken).DynamicContext();
                     UdpReceiveResult packet = await server.ReceiveAsync(CancelToken).AsTask().WaitAsync(TimeSpan.FromSeconds(1), CancelToken).DynamicContext();
@@ -214,13 +216,13 @@ namespace wan24.DNS.Services
                     }
                     Logging.WriteTrace($"Query processor {EndPoint} finished processing query #{tcsHashCode}");
                 }
-                catch (SocketException ex)
-                {
-                    Logging.WriteDebug($"Query processor {EndPoint} for query #{tcsHashCode} catched a socket exception: {ex}");
-                }
                 catch (WebSocketException ex)
                 {
                     Logging.WriteDebug($"Query processor {EndPoint} for query #{tcsHashCode} catched a WebSocket exception: {ex}");
+                }
+                catch (SocketException ex)
+                {
+                    Logging.WriteDebug($"Query processor {EndPoint} for query #{tcsHashCode} catched a socket exception: {ex}");
                 }
                 catch (OperationCanceledException ex)
                 {
